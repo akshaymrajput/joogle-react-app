@@ -69,7 +69,7 @@ export const Results = () => {
                         ) : (
                             <>
                                 <img
-                                    className="object-cover w-full h-48 rounded-lg"
+                                    className="object-cover w-full h-96 sm:h-48 rounded-lg"
                                     src={item.thumbnailImageUrl}
                                     alt={item.title}
                                     loading="lazy"

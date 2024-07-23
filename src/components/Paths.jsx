@@ -6,7 +6,7 @@ import Error from "./Error";
 
 export const Paths = () => {
     return (
-        <div className="py-4 px-2 md:p-4">
+        <div className="py-4 px-2 md:p-4 min-h-screen">
             <Routes>
                 <Route
                     exact
