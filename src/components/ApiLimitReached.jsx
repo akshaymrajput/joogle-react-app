@@ -21,7 +21,7 @@ const ApiLimitReached = () => {
                     apiLimitRef.current.style.display = "none";
                 },
             });
-        }, 5000);
+        }, 2000); // Display for 5 seconds
 
         return () => clearTimeout(timer);
     }, []);
@@ -29,7 +29,7 @@ const ApiLimitReached = () => {
     return (
         <div
             ref={apiLimitRef}
-            className="fixed bottom-full right-0 md:right-4 p-4 bg-red-500 text-white rounded-lg shadow-lg flex items-center gap-4 z-50"
+            className="fixed bottom-4 right-0 md:bottom-4 md:right-2 p-4 bg-red-500 text-white rounded-lg shadow-lg flex items-center gap-4 z-50"
         >
             <IoSadOutline className="text-2xl" />
             <span>API Limit Reached. Showing dummy data instead.</span>

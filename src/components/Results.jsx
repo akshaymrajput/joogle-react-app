@@ -43,11 +43,11 @@ export const Results = () => {
     if (isLoading) return <Loading />;
 
     const renderResults = (data, type) => (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {data.map((item, index) => (
                 <div
                     key={index}
-                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4"
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4 overflow-hidden"
                 >
                     <a
                         href={type === "search" ? item.link : item.contextLink}
@@ -86,7 +86,7 @@ export const Results = () => {
     );
 
     return (
-        <div ref={resultsRef} className="p-4">
+        <div ref={resultsRef} className="p-4 max-w-full overflow-hidden">
             {apiLimitReached && <ApiLimitReached />}
             {location.pathname === "/search"
                 ? renderResults(apiLimitReached ? dummyData : results, "search")

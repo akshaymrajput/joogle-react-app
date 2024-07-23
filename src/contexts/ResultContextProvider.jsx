@@ -22,7 +22,7 @@ export const ResultContextProvider = ({ children }) => {
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
-                    "x-rapidapi-host": baseUrl,
+                    "x-rapidapi-host": new URL(baseUrl).hostname,
                     "x-rapidapi-key": import.meta.env.VITE_REACT_APP_API_KEY,
                 },
             });
