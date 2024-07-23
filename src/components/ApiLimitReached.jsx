@@ -21,7 +21,7 @@ const ApiLimitReached = () => {
                     apiLimitRef.current.style.display = "none";
                 },
             });
-        }, 2000); // Display for 5 seconds
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, []);
