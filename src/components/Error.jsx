@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 
 const Error = () => {
     const errorRef = useRef(null);
     const textRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const tl = gsap.timeline({
@@ -19,7 +21,13 @@ const Error = () => {
             { opacity: 1, y: 0 },
             "-=0.5"
         );
-    }, []);
+
+        const timer = setTimeout(() => {
+            navigate("/search");
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [navigate]);
 
     return (
         <div className="flex flex-col justify-center items-center uppercase min-h-[calc(100vh-298px)] md:min-h-[calc(100vh-162px)]">

@@ -42,57 +42,58 @@ export const Results = () => {
 
     if (isLoading) return <Loading />;
 
+    const renderResults = (data, type) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {data.map((item, index) => (
+                <div
+                    key={index}
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4"
+                >
+                    <a
+                        href={type === "search" ? item.link : item.contextLink}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {type === "search" ? (
+                            <>
+                                <p className="text-sm text-purple-500 dark:text-gray-400 truncate">
+                                    {item.link}
+                                </p>
+                                <p className="text-xl font-semibold hover:underline dark:text-gray-300 text-black">
+                                    {item.title}
+                                </p>
+                                <p className="text-lg dark:text-gray-500 text-gray-700 mt-2">
+                                    {item.snippet}
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <img
+                                    className="object-cover w-full h-48 rounded-lg"
+                                    src={item.thumbnailImageUrl}
+                                    alt={item.title}
+                                    loading="lazy"
+                                />
+                                <p className="w-full text-sm mt-2 text-center dark:text-gray-300 text-gray-700">
+                                    {item.title}
+                                </p>
+                            </>
+                        )}
+                    </a>
+                </div>
+            ))}
+        </div>
+    );
+
     return (
         <div ref={resultsRef} className="p-4">
             {apiLimitReached && <ApiLimitReached />}
-            {location.pathname === "/search" ? (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {dummyData?.map(({ link, title, snippet }, index) => (
-                        <div
-                            key={index}
-                            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4"
-                        >
-                            <a href={link} target="_blank" rel="noreferrer">
-                                <p className="text-sm text-purple-500 dark:text-gray-400 truncate">
-                                    {link}
-                                </p>
-                                <p className="text-xl font-semibold hover:underline dark:text-gray-300 text-black">
-                                    {title}
-                                </p>
-                                <p className="text-lg dark:text-gray-500 text-gray-700 mt-2">
-                                    {snippet}
-                                </p>
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {dummyImages?.map(
-                        ({ thumbnailImageUrl, contextLink, title }, index) => (
-                            <a
-                                className="w-full"
-                                href={contextLink}
-                                key={index}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4">
-                                    <img
-                                        className="object-cover w-full h-48 rounded-lg"
-                                        src={thumbnailImageUrl}
-                                        alt={title}
-                                        loading="lazy"
-                                    />
-                                    <p className="w-full text-sm mt-2 text-center dark:text-gray-300 text-gray-700">
-                                        {title}
-                                    </p>
-                                </div>
-                            </a>
-                        )
-                    )}
-                </div>
-            )}
+            {location.pathname === "/search"
+                ? renderResults(apiLimitReached ? dummyData : results, "search")
+                : renderResults(
+                      apiLimitReached ? dummyImages : results,
+                      "images"
+                  )}
         </div>
     );
 };
